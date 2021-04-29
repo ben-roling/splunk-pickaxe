@@ -7,6 +7,7 @@ require 'splunk/pickaxe/objects/macros'
 require 'splunk/pickaxe/objects/reports'
 require 'splunk/pickaxe/objects/tags'
 require 'splunk/pickaxe/objects/field_extractions'
+require 'splunk/pickaxe/objects/lookups'
 
 module Splunk
   module Pickaxe
@@ -24,6 +25,7 @@ module Splunk
         @reports = Reports.new service, environment, config
         @tags = Tags.new service, environment, config
         @field_extractions = FieldExtractions.new service, environment, config
+        @lookups = Lookups.new service, environment, config
       end
 
       def sync_all
@@ -40,13 +42,14 @@ module Splunk
         overwrite = @args.fetch(:overwrite, false)
         local_save = @args.fetch(:local_save, false)
 
-        @alerts.save overwrite, local_save
-        @dashboards.save overwrite, local_save
-        @eventtypes.save overwrite, local_save
-        @macros.save overwrite, local_save
-        @reports.save overwrite, local_save
-        # splunk-sdk doesn't seem to support iterating tags
-        @field_extractions.save overwrite, local_save
+        # @alerts.save overwrite, local_save
+        # @dashboards.save overwrite, local_save
+        # @eventtypes.save overwrite, local_save
+        # @macros.save overwrite, local_save
+        # @reports.save overwrite, local_save
+        # # splunk-sdk doesn't seem to support iterating tags
+        # @field_extractions.save overwrite, local_save
+        @lookups.save overwrite, local_save
       end
     end
   end
